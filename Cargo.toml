@@ -1,0 +1,73 @@
+[package]
+name = "mirl_input"
+version = "0.0.0-alpha"
+edition = "2024"
+repository.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+mirl_core = { version = "0.0.0-alpha" }
+mirl_buffer = { version = "0.0.0-alpha" }
+mirl_graphics = { version = "0.0.0-alpha", features = ["svg"] }
+
+sevenz-rust2 = { version = "0.21.0", default-features = false, optional = true }
+mirl_derive = { version = "0.0.0-alpha", optional = true }
+# Codec
+compactly = { version = "0.1.6", optional = true }
+serde = { version = ">=1.0", optional = true, default-features = false, features = [
+    "derive",
+] }
+bitcode = { version = "0.6.9", optional = true, default-features = false, features = [
+    "derive",
+] }
+wincode = { version = "0.5.3", optional = true, features = ["derive"] }
+zerocopy = { version = "0.8.48", optional = true, default-features = false, features = [
+    "float-nightly",
+    "derive",
+] }
+
+# Enum functionality
+strum = { version = ">=0.28", optional = true, default-features = false, features = [
+    "derive",
+] }
+enum_ext = { version = "0.6.0", optional = true, default-features = false }
+# GLFW
+glfw = { version = "0.51.0", optional = true }
+
+gl = { version = "0.14.0", optional = true }
+
+[features]
+all = ["cursor_loading", "all_codecs", "all_enum_extensions"]
+_checking = ["all", "cursor_show_hotspot"]
+
+# Does nothing by itself. Needs another codec or enum flag to do something
+mirl_derive = ["dep:mirl_derive"]
+# Compatibility with ffi
+c_compatible = ["mirl_derive"]
+# Enables all codecs
+all_codecs = ["serde", "bitcode", "wincode", "compactly", "zerocopy"]
+# # All enum extensions
+all_enum_extensions = ["strum", "enum_ext"]
+
+# Codec stuff
+serde = ["dep:serde", "mirl_derive", "mirl_core/serde"]
+bitcode = ["dep:bitcode", "mirl_derive", "mirl_core/bitcode"]
+wincode = ["dep:wincode", "mirl_derive", "mirl_core/wincode"]
+compactly = ["dep:compactly", "mirl_derive", "mirl_core/compactly"]
+zerocopy = ["dep:zerocopy", "mirl_derive", "mirl_core/zerocopy"]
+
+# Enum extensions
+strum = ["dep:strum", "mirl_derive"]
+enum_ext = ["dep:enum_ext", "mirl_derive"]
+
+cursor_loading = ["dep:sevenz-rust2"]
+glfw = ["dep:glfw", "dep:gl"]
+
+cursor_show_hotspot = []
+
+[lints]
+workspace = true
+
+[build-dependencies]
+mirl_build_tools = { workspace = true }
