@@ -13,8 +13,7 @@ mod mouse_snapshot;
 pub use mouse_snapshot::*;
 
 use crate::mouse::cursors::{
-    CursorResolution, CustomCursorResolution, DefaultCursors, RawCursor,
-    RawSVGCursor,
+    CursorResolution, CustomCursorResolution, DefaultCursors, RawCursor, RawSVGCursor,
 };
 
 /// A struct holding the state of a mouse

@@ -11,6 +11,7 @@
 #![allow(incomplete_features)] // Idc anymore
 #![feature(lazy_type_alias)]
 #![feature(specialization)]
+#![feature(const_cmp)]
 
 /// Keyboard related stuff
 pub mod keyboard;

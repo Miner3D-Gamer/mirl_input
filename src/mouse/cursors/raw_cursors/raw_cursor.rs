@@ -70,11 +70,11 @@ impl RawCursor {
         // TODO: The cursors were maybe designed for for 24x24 instead of 16x16. We may need to scretch the hotspot.
         let data = data.replace(
             "{primary}",
-            &mirl_core::misc::color_to_hex(color_info.primary_color),
+            &mirl_graphics::misc::color_to_hex(color_info.primary_color),
         );
         let data = data.replace(
             "{secondary}",
-            &mirl_core::misc::color_to_hex(color_info.secondary_color),
+            &mirl_graphics::misc::color_to_hex(color_info.secondary_color),
         );
 
         let image_data =
