@@ -5,33 +5,6 @@ edition = "2024"
 repository.workspace = true
 license.workspace = true
 authors.workspace = true
-
-[dependencies]
-# mirl_core = { version = "0.0.0-alpha" }
-mirl_buffer = { version = "0.0.0-alpha" }
-mirl_graphics = { version = "0.0.0-alpha", features = ["svg"] }
-
-sevenz-rust2 = { version = "0.21.0", default-features = false, optional = true }
-mirl_derive = { version = "0.0.0-alpha", optional = true }
-# Codec
-compactly = { version = "0.1.6", optional = true }
-serde = { version = ">=1.0", optional = true, default-features = false, features = [
-    "derive",
-] }
-bitcode = { version = "0.6.9", optional = true, default-features = false, features = [
-    "derive",
-] }
-wincode = { version = "0.5.3", optional = true, features = ["derive"] }
-zerocopy = { version = "0.8.48", optional = true, default-features = false, features = [
-    "float-nightly",
-    "derive",
-] }
-
-# Enum functionality
-strum = { version = ">=0.28", optional = true, default-features = false, features = [
-    "derive",
-] }
-enum_ext = { version = "0.6.0", optional = true, default-features = false }
 # # GLFW
 # glfw = { version = "0.51.0", optional = true }
 
@@ -66,8 +39,35 @@ cursor_loading = ["dep:sevenz-rust2"]
 
 cursor_show_hotspot = []
 
-[lints]
-workspace = true
+[dependencies]
+bitcode = { version = "0.6", optional = true, default-features = false, features = [
+    "derive",
+] }
+# Codec
+compactly = { version = "0.1", optional = true }
+enum_ext = { version = "0.6", optional = true, default-features = false }
+# mirl_core = { version = "0.0.0-alpha" }
+mirl_buffer = { version = "0.0.0-alpha" }
+mirl_derive = { version = "0.0.0-alpha", optional = true }
+mirl_graphics = { version = "0.0.0-alpha", features = ["svg"] }
+serde = { version = "1", optional = true, default-features = false, features = [
+    "derive",
+] }
+
+sevenz-rust2 = { version = "0.21", default-features = false, optional = true }
+
+# Enum functionality
+strum = { version = "0.28", optional = true, default-features = false, features = [
+    "derive",
+] }
+wincode = { version = "0.5", optional = true, features = ["derive"] }
+zerocopy = { version = "0.8", optional = true, default-features = false, features = [
+    "float-nightly",
+    "derive",
+] }
 
 [build-dependencies]
 mirl_build_tools = { workspace = true }
+
+[lints]
+workspace = true
