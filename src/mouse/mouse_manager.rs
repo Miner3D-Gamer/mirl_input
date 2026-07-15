@@ -65,22 +65,14 @@ impl MouseState {
         map_button(button, self)
     }
     /// Set the state of a mouse button
-    pub const fn set_mouse_button_state(
-        &mut self,
-        button: MouseButton,
-        value: bool,
-    ) {
+    pub const fn set_mouse_button_state(&mut self, button: MouseButton, value: bool) {
         set_mouse_button(button, self, value);
     }
 }
 
-
 #[must_use]
 /// Get the value [`MouseButton`] of [`MouseManager`]
-pub const fn map_button(
-    button: MouseButton,
-    mouse_manager: &MouseState,
-) -> bool {
+pub const fn map_button(button: MouseButton, mouse_manager: &MouseState) -> bool {
     match button {
         MouseButton::Left => mouse_manager.left_mouse_button,
         MouseButton::Right => mouse_manager.right_mouse_button,
@@ -93,11 +85,7 @@ pub const fn map_button(
     }
 }
 /// Set the value [`MouseButton`] of [`MouseManager`]
-pub const fn set_mouse_button(
-    button: MouseButton,
-    mouse_manager: &mut MouseState,
-    value: bool,
-) {
+pub const fn set_mouse_button(button: MouseButton, mouse_manager: &mut MouseState, value: bool) {
     match button {
         MouseButton::Left => mouse_manager.left_mouse_button = value,
         MouseButton::Right => mouse_manager.right_mouse_button = value,

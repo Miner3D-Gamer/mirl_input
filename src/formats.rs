@@ -53,9 +53,7 @@ pub fn create_bmp(data: &[u32], size: (usize, usize)) -> Option<Vec<u8>> {
         for x in 0..size.0 {
             let pixel = unsafe { (y * size.0 + x).get_unchecked(data) };
 
-            bmp_buffer.extend(&<[u8; 4]>::from(
-                (unsafe { *pixel }).unpack_u32_bgra(),
-            ));
+            bmp_buffer.extend(&<[u8; 4]>::from((unsafe { *pixel }).unpack_u32_bgra()));
         }
     }
 
@@ -66,11 +64,7 @@ pub fn create_bmp(data: &[u32], size: (usize, usize)) -> Option<Vec<u8>> {
 /// TODO: Test if this works as intended
 ///
 /// `hotspot` is the (x, y) coordinate of the cursor's hotspot
-pub fn create_cur_simple(
-    data: &[u32],
-    size: (usize, usize),
-    hotspot: (u8, u8),
-) -> Option<Vec<u8>> {
+pub fn create_cur_simple(data: &[u32], size: (usize, usize), hotspot: (u8, u8)) -> Option<Vec<u8>> {
     if !CursorResolution::is_valid_size(size) {
         return None;
     }
@@ -141,9 +135,7 @@ pub fn create_cur_simple(
 ///
 /// Each entry in `images` is `(data, (width, height))`.
 /// `hotspot` is the (x, y) coordinate of the cursor's hotspot, shared across all images.
-pub fn create_cur<'a, T: RawCursorFrameContainer>(
-    cursor: &'a T,
-) -> Option<Vec<u8>> {
+pub fn create_cur<'a, T: RawCursorFrameContainer>(cursor: &'a T) -> Option<Vec<u8>> {
     #[allow(unreachable_pub)]
     pub struct ImageMeta {
         width: u8,
@@ -186,8 +178,7 @@ pub fn create_cur<'a, T: RawCursorFrameContainer>(
         let row_stride = (u32::from(width) * 32).div_ceil(32) * 4;
         let pixel_array_size = row_stride * u32::from(height);
         let bmp_header_size: u32 = 40;
-        let and_mask_size =
-            u32::from(height) * (u32::from(width).div_ceil(32) * 4);
+        let and_mask_size = u32::from(height) * (u32::from(width).div_ceil(32) * 4);
         let size_in_bytes = bmp_header_size + pixel_array_size + and_mask_size;
 
         image_meta.push(ImageMeta {
@@ -216,8 +207,7 @@ pub fn create_cur<'a, T: RawCursorFrameContainer>(
     for (cursor_data, meta) in images.iter().zip(&image_meta) {
         let width = meta.width;
         let height = meta.height;
-        let and_mask_size =
-            u32::from(height) * (u32::from(width).div_ceil(32) * 4);
+        let and_mask_size = u32::from(height) * (u32::from(width).div_ceil(32) * 4);
 
         // BITMAPINFOHEADER (40 bytes)
         cur_buffer.extend(&40u32.to_le_bytes());
@@ -233,8 +223,7 @@ pub fn create_cur<'a, T: RawCursorFrameContainer>(
         cur_buffer.extend(&0u32.to_le_bytes()); // Important colors
 
         // Pixel data (bottom-up, BGRA)
-        cur_buffer
-            .reserve(cursor_data.image.width * cursor_data.image.height * 4);
+        cur_buffer.reserve(cursor_data.image.width * cursor_data.image.height * 4);
         for y in (0..cursor_data.image.height).rev() {
             for x in 0..cursor_data.image.width {
                 let pixel = cursor_data.image[y * cursor_data.image.width + x];
@@ -269,9 +258,7 @@ pub fn create_cur<'a, T: RawCursorFrameContainer>(
 ///
 /// # Errors
 /// When am image could not be converted, its idx will be returned
-pub fn create_ani(
-    cursor: &AnimatedRawCursorWithResolution,
-) -> Result<Vec<u8>, usize> {
+pub fn create_ani(cursor: &AnimatedRawCursorWithResolution) -> Result<Vec<u8>, usize> {
     // Helper: write a RIFF chunk  →  FourCC (4 bytes) + size (4 LE) + data
     fn chunk(tag: [u8; 4], data: &[u8]) -> Vec<u8> {
         let mut v = Vec::with_capacity(8 + data.len());
@@ -352,9 +339,7 @@ use crate::{
     // graphics::u32_to_rgba_u8,
     mouse::{
         RawCursorFrameContainer,
-        cursors::{
-            AnimatedRawCursorWithResolution, CursorResolution, RawCursor,
-        },
+        cursors::{AnimatedRawCursorWithResolution, CursorResolution, RawCursor},
     },
 };
 

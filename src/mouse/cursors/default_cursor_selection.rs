@@ -172,12 +172,8 @@ pub enum DefaultCursorsSelection {
     ZoomOut,
 }
 
-impl From<Option<&(&str, (u8, u8), DefaultCursorsSelection)>>
-    for DefaultCursorLoadError
-{
-    fn from(
-        _value: Option<&(&str, (u8, u8), DefaultCursorsSelection)>,
-    ) -> Self {
+impl From<Option<&(&str, (u8, u8), DefaultCursorsSelection)>> for DefaultCursorLoadError {
+    fn from(_value: Option<&(&str, (u8, u8), DefaultCursorsSelection)>) -> Self {
         Self::InfoNotFound
     }
 }

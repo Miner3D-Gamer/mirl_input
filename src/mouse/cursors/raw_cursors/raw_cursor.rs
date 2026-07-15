@@ -26,15 +26,10 @@ impl RawCursor {
     /// Create a new raw cursor, returning [`None`] if the hotspot is outside the image bounds or the image has an invalid resolution
     pub fn new(image: Buffer, hotspot: (u8, u8)) -> Option<Self> {
         CursorResolution::from_sized_resolution(image.get_size())?;
-        if hotspot.0 as usize >= image.width
-            || hotspot.1 as usize >= image.height
-        {
+        if hotspot.0 as usize >= image.width || hotspot.1 as usize >= image.height {
             None
         } else {
-            Some(Self {
-                image,
-                hotspot,
-            })
+            Some(Self { image, hotspot })
         }
     }
 }
@@ -50,10 +45,7 @@ impl RawCursor {
         size: CursorResolution,
         color_info: DefaultCursorColorInfo,
     ) -> Self {
-        unsafe {
-            Self::from_raw_svg_cursor(raw_cursor, size, color_info)
-                .unwrap_unchecked()
-        }
+        unsafe { Self::from_raw_svg_cursor(raw_cursor, size, color_info).unwrap_unchecked() }
     }
     /// Rasterize the raw SVG into a [`Buffer`] image we can use more normally
     ///
@@ -77,9 +69,8 @@ impl RawCursor {
             &mirl_graphics::misc::color_to_hex(color_info.secondary_color),
         );
 
-        let image_data =
-            mirl_graphics::misc::rasterize_svg(&data, wanted_size, wanted_size)
-                .map_err(|_| DefaultCursorLoadError::RasterizeSVG)?;
+        let image_data = mirl_graphics::misc::rasterize_svg(&data, wanted_size, wanted_size)
+            .map_err(|_| DefaultCursorLoadError::RasterizeSVG)?;
         let buffer = mirl_graphics::misc::pixmap_to_buffer(&image_data);
         Ok(Self {
             image: buffer,

@@ -22,15 +22,13 @@ impl<Type> CustomCursorResolution<Type> {
     /// Take all values and return them in a [`Vec`]
     pub fn to_vec(self) -> Vec<Type> {
         vec![
-            self.x16, self.x32, self.x48, self.x64, self.x96, self.x128,
-            self.x256,
+            self.x16, self.x32, self.x48, self.x64, self.x96, self.x128, self.x256,
         ]
     }
     /// Take all values and return a ref to them in a [`Vec`]
     pub fn to_vec_ref(&self) -> Vec<&Type> {
         vec![
-            &self.x16, &self.x32, &self.x48, &self.x64, &self.x96, &self.x128,
-            &self.x256,
+            &self.x16, &self.x32, &self.x48, &self.x64, &self.x96, &self.x128, &self.x256,
         ]
     }
 }

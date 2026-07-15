@@ -3,20 +3,16 @@ use super::super::*;
 /// A raw cursors with multiple possible resolutions
 ///
 /// Must contain at least 1 [`AnimatedRawCursor`]
-pub type AnimatedRawCursorWithResolution =
-    CustomCursorResolution<Option<AnimatedRawCursor>>;
+pub type AnimatedRawCursorWithResolution = CustomCursorResolution<Option<AnimatedRawCursor>>;
 
 impl AnimatedRawCursorWithResolution {
     #[must_use]
     /// Get a list of frames
-    pub fn to_raw_cursor_with_resolution(
-        &self,
-    ) -> Vec<RawCursorWithResolution<&RawCursor>> {
-        fn get_frame(
-            frame: Option<&AnimatedRawCursor>,
-            idx: usize,
-        ) -> Option<&RawCursor> {
-            frame.as_ref().map(|x| unsafe { x.get_frame_unchecked(idx) })
+    pub fn to_raw_cursor_with_resolution(&self) -> Vec<RawCursorWithResolution<&RawCursor>> {
+        fn get_frame(frame: Option<&AnimatedRawCursor>, idx: usize) -> Option<&RawCursor> {
+            frame
+                .as_ref()
+                .map(|x| unsafe { x.get_frame_unchecked(idx) })
         }
         let mut list = Vec::new();
 

@@ -45,8 +45,7 @@ impl<T> KeyBind<T> {
         alt_pressed: bool,
         control_pressed: bool,
     ) -> bool {
-        (self.keys.is_empty()
-            || self.keys.iter().all(|k| newly_pressed.contains(k)))
+        (self.keys.is_empty() || self.keys.iter().all(|k| newly_pressed.contains(k)))
             && (shift_pressed || !self.requires_shift)
             && (alt_pressed || !self.requires_alt)
             && (control_pressed || !self.requires_control)
@@ -108,23 +107,17 @@ pub fn handle_keycodes<T: Clone>(
 ) -> (Vec<KeyBind<T>>, Vec<KeyCode>) {
     let mut newly_pressed = newly_pressed.to_vec();
 
-    let control_down = held.contains(&KeyCode::LeftControl)
-        || held.contains(&KeyCode::RightControl);
-    let alt_down =
-        held.contains(&KeyCode::LeftAlt) || held.contains(&KeyCode::RightAlt);
-    let shift_down = held.contains(&KeyCode::LeftShift)
-        || held.contains(&KeyCode::RightShift);
+    let control_down =
+        held.contains(&KeyCode::LeftControl) || held.contains(&KeyCode::RightControl);
+    let alt_down = held.contains(&KeyCode::LeftAlt) || held.contains(&KeyCode::RightAlt);
+    let shift_down = held.contains(&KeyCode::LeftShift) || held.contains(&KeyCode::RightShift);
 
     let mut active_keybinds = Vec::new();
 
     for keybind in keybinds.clone() {
         //let k = keybind.keybind();
-        let active = keybind.is_keybind_activated(
-            &newly_pressed,
-            shift_down,
-            alt_down,
-            control_down,
-        );
+        let active =
+            keybind.is_keybind_activated(&newly_pressed, shift_down, alt_down, control_down);
         if active {
             active_keybinds.push(keybind);
         }

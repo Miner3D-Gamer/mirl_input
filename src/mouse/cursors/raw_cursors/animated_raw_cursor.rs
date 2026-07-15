@@ -13,7 +13,7 @@ impl AllowedInAnimatedRawCursor for &RawCursor {}
 /// All cursors have the same size and hotspot
 pub struct AnimatedRawCursor<Cursor: AllowedInAnimatedRawCursor = RawCursor> {
     /// All [`RawCursor`] are the same size and a valid size
-    /// 
+    ///
     /// Not recommended to access manually
     pub cursors: Vec<(Cursor, u32)>,
 }
@@ -50,11 +50,7 @@ impl AnimatedRawCursor<&RawCursor> {
     /// Clone the underlying [`RawCursor`] references to gain ownership
     pub fn to_owned(self) -> AnimatedRawCursor<RawCursor> {
         AnimatedRawCursor {
-            cursors: self
-                .cursors
-                .iter()
-                .map(|x| ((*x.0).clone(), x.1))
-                .collect(),
+            cursors: self.cursors.iter().map(|x| ((*x.0).clone(), x.1)).collect(),
         }
     }
 }
@@ -63,9 +59,7 @@ impl AnimatedRawCursor {
     ///
     /// # Errors
     /// [`AnimatedRawCursorError`]
-    pub fn from_list(
-        list: Vec<(RawCursor, u32)>,
-    ) -> Result<Self, AnimatedRawCursorError> {
+    pub fn from_list(list: Vec<(RawCursor, u32)>) -> Result<Self, AnimatedRawCursorError> {
         if list.is_empty() {
             return Err(AnimatedRawCursorError::EmptyList);
         }
@@ -81,9 +75,7 @@ impl AnimatedRawCursor {
         if let Some(idx) = wrong {
             return Err(AnimatedRawCursorError::InvalidSize(list, idx));
         }
-        Ok(Self {
-            cursors: list,
-        })
+        Ok(Self { cursors: list })
     }
     #[must_use]
     /// Get the hotspot of this [`AnimatedRawCursor`]

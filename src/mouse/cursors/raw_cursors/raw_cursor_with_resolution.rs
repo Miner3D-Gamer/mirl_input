@@ -13,9 +13,7 @@ impl RawCursorFrameContainer for RawCursorWithResolution<&RawCursor> {
     }
 }
 
-impl<'a> From<&'a RawCursorWithResolution<RawCursor>>
-    for RawCursorWithResolution<&'a RawCursor>
-{
+impl<'a> From<&'a RawCursorWithResolution<RawCursor>> for RawCursorWithResolution<&'a RawCursor> {
     fn from(value: &'a RawCursorWithResolution<RawCursor>) -> Self {
         RawCursorWithResolution {
             x16: value.x16.as_ref(),
@@ -31,9 +29,8 @@ impl<'a> From<&'a RawCursorWithResolution<RawCursor>>
 /// A raw cursors with multiple possible resolutions
 ///
 /// Must contain at least 1 [`RawCursor`]
-pub type RawCursorWithResolution<
-    Cursor: AllowedInRawCursorWithResolution = RawCursor,
-> = CustomCursorResolution<Option<Cursor>>;
+pub type RawCursorWithResolution<Cursor: AllowedInRawCursorWithResolution = RawCursor> =
+    CustomCursorResolution<Option<Cursor>>;
 
 impl RawCursorWithResolution<&RawCursor> {
     #[must_use]
@@ -135,16 +132,13 @@ impl RawCursorWithResolution {
     ///
     ///
     /// TODO: Use `NonEmptyVec` from `mirl_collections` to eliminate the check against default at the end
-    pub fn new_from_list(
-        list: Vec<RawCursor>,
-    ) -> Result<Self, (Vec<RawCursor>, usize)> {
+    pub fn new_from_list(list: Vec<RawCursor>) -> Result<Self, (Vec<RawCursor>, usize)> {
         let mut n = Self::default();
         let mut list = list;
         for idx in 0..list.len() {
             let item = unsafe { list.pop().unwrap_unchecked() };
             if let Some(bad) = n.insert_raw_cursor(item) {
-                let mut already_inserted =
-                    n.to_non_empty_vec().unwrap_or_default();
+                let mut already_inserted = n.to_non_empty_vec().unwrap_or_default();
                 already_inserted.push(bad);
                 already_inserted.extend(list);
                 return Err((already_inserted, idx));
@@ -159,13 +153,8 @@ impl RawCursorWithResolution {
     #[must_use]
     // #[allow(must_use)]
     /// Insert a raw cursor into [`Self`](RawCursorWithResolution), if the cursors has the wrong resolution it returns the cursor
-    pub fn insert_raw_cursor(
-        &mut self,
-        cursor: RawCursor,
-    ) -> Option<RawCursor> {
-        if let Some(res) =
-            CursorResolution::from_sized_resolution(cursor.image.get_size())
-        {
+    pub fn insert_raw_cursor(&mut self, cursor: RawCursor) -> Option<RawCursor> {
+        if let Some(res) = CursorResolution::from_sized_resolution(cursor.image.get_size()) {
             unsafe {
                 self.insert_raw_cursor_with_resolution(cursor, res);
             }
@@ -175,7 +164,7 @@ impl RawCursorWithResolution {
         }
     }
     /// Insert the cursor if in the given resolution
-    /// 
+    ///
     /// # Safety
     /// You must check if the cursor actually has the said resolution
     pub unsafe fn insert_raw_cursor_with_resolution(

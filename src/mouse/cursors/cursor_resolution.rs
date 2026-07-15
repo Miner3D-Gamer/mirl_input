@@ -65,9 +65,7 @@ impl CursorResolution {
     }
     /// Create a [`CursorResolution`] if the input size is valid (Max: 256)
     #[must_use]
-    pub fn from_sized_resolution<T: TryInto<u16> + PartialEq>(
-        size: (T, T),
-    ) -> Option<Self> {
+    pub fn from_sized_resolution<T: TryInto<u16> + PartialEq>(size: (T, T)) -> Option<Self> {
         if size.0 != size.1 {
             return None;
         }
@@ -78,9 +76,7 @@ impl CursorResolution {
     }
     /// Create a [`CursorResolution`] if the input size is valid (Max: 255)
     #[must_use]
-    pub fn from_sized_pos_resolution<T: TryInto<u8> + PartialEq>(
-        size: (T, T),
-    ) -> Option<Self> {
+    pub fn from_sized_pos_resolution<T: TryInto<u8> + PartialEq>(size: (T, T)) -> Option<Self> {
         if size.0 != size.1 {
             return None;
         }

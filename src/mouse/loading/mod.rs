@@ -93,7 +93,7 @@ pub const DEFAULT_CURSOR_SIZE: u8 = 24;
 /// All cursor data compressed into a 7z
 pub static CURSORS_7Z: &[u8] = include_bytes!("cursors.7z");
 #[rustfmt::skip]
-/// Info about the cusrors stored in [`CURSORS_7Z`]
+/// Info about the cursors stored in [`CURSORS_7Z`]
 pub static DEFAULT_CURSOR_INFO: &[(&[&str], (u8, u8), DefaultCursorsSelection)] = &[
     (&["default"], (6, 4), DefaultCursorsSelection::Pointer),
     (&["alias"], (6, 4), DefaultCursorsSelection::Alias),
@@ -146,11 +146,8 @@ pub static DEFAULT_CURSOR_INFO: &[(&[&str], (u8, u8), DefaultCursorsSelection)] 
 pub fn get_raw_default_cursors_unconfigured() -> DefaultCursors<RawSVGCursor> {
     let reader = std::io::Cursor::new(CURSORS_7Z);
 
-    let mut reader = sevenz_rust2::ArchiveReader::new(
-        reader,
-        sevenz_rust2::Password::empty(),
-    )
-    .unwrap();
+    let mut reader =
+        sevenz_rust2::ArchiveReader::new(reader, sevenz_rust2::Password::empty()).unwrap();
     #[allow(clippy::type_complexity)]
     let cursor_infos: (
         Vec<Vec<String>>,
@@ -160,7 +157,9 @@ pub fn get_raw_default_cursors_unconfigured() -> DefaultCursors<RawSVGCursor> {
         .iter()
         .map(|x| {
             (
-                x.0.iter().map(|y| format!("{y}.svg")).collect::<Vec<String>>(),
+                x.0.iter()
+                    .map(|y| format!("{y}.svg"))
+                    .collect::<Vec<String>>(),
                 x.1,
                 x.2,
             )
@@ -179,8 +178,8 @@ pub fn get_raw_default_cursors_unconfigured() -> DefaultCursors<RawSVGCursor> {
         // let mut cursors = Vec::with_capacity(files.len());
         for file in files {
             let data = reader.read_file(file).unwrap();
-            // Safety: All files are ascii only so utf8 complient.
-            let string = unsafe { String::from_utf8(data).unwrap_unchecked() };
+            // Safety: All files are ascii only so utf8 compliant.
+            let string = unsafe { String::from_utf8_unchecked(data) };
             // cursors.push(string);
             let cursor = RawSVGCursor {
                 data: string,

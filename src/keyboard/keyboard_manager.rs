@@ -411,10 +411,7 @@ impl KeyboardState {
 
 /// Get the value [`KeyCode`] of [`KeyManager`]
 #[must_use]
-pub const fn map_keycode(
-    keycode: KeyCode,
-    key_manager: &KeyboardState,
-) -> bool {
+pub const fn map_keycode(keycode: KeyCode, key_manager: &KeyboardState) -> bool {
     match keycode {
         KeyCode::KeyA => key_manager.key_a,
         KeyCode::KeyB => key_manager.b,
@@ -570,9 +567,7 @@ pub const fn map_keycode(
         KeyCode::KeyThornÞ => key_manager.þ,
         KeyCode::KeyOELigatureŒ => key_manager.œ,
         KeyCode::AnyAlt => key_manager.right_alt || key_manager.left_alt,
-        KeyCode::AnyControl => {
-            key_manager.right_control || key_manager.left_control
-        }
+        KeyCode::AnyControl => key_manager.right_control || key_manager.left_control,
         KeyCode::AnyShift => key_manager.right_shift || key_manager.left_shift,
         KeyCode::AnySuper => key_manager.right_super || key_manager.left_super,
         KeyCode::Pause => key_manager.pause,
@@ -599,11 +594,7 @@ pub const fn map_keycode(
 }
 
 /// Set the value [`KeyCode`] of [`KeyManager`]
-pub const fn set_keycode(
-    keycode: KeyCode,
-    key_manager: &mut KeyboardState,
-    value: bool,
-) {
+pub const fn set_keycode(keycode: KeyCode, key_manager: &mut KeyboardState, value: bool) {
     match keycode {
         KeyCode::KeyA => key_manager.key_a = value,
         KeyCode::KeyB => key_manager.b = value,

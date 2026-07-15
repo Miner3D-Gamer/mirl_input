@@ -12,11 +12,7 @@ pub struct MouseButtonState {
 impl MouseButtonState {
     #[must_use]
     /// Create a new button state using the current mouse state, assumes that the buttons have been released last frame
-    pub const fn new_default(
-        left_down: bool,
-        middle_down: bool,
-        right_down: bool,
-    ) -> Self {
+    pub const fn new_default(left_down: bool, middle_down: bool, right_down: bool) -> Self {
         Self {
             left: ButtonState::new(left_down, false),
             middle: ButtonState::new(middle_down, false),
@@ -40,12 +36,7 @@ impl MouseButtonState {
         }
     }
     /// Updates the mouse button states
-    pub const fn update(
-        &mut self,
-        left_down: bool,
-        middle_down: bool,
-        right_down: bool,
-    ) {
+    pub const fn update(&mut self, left_down: bool, middle_down: bool, right_down: bool) {
         self.left.update(left_down);
         self.middle.update(middle_down);
         self.right.update(right_down);

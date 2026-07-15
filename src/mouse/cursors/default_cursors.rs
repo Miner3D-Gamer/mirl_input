@@ -98,9 +98,7 @@ impl<Cursor> DefaultCursors<Cursor> {
             DefaultCursorsSelection::Alias => &self.alias,
             DefaultCursorsSelection::ResizeAll => &self.resize_all,
             DefaultCursorsSelection::ArrowBottomLeft => &self.arrow_bottom_left,
-            DefaultCursorsSelection::ArrowBottomRight => {
-                &self.arrow_bottom_right
-            }
+            DefaultCursorsSelection::ArrowBottomRight => &self.arrow_bottom_right,
             DefaultCursorsSelection::ArrowBottomStop => &self.arrow_bottom_stop,
             DefaultCursorsSelection::Cell => &self.cell,
             DefaultCursorsSelection::CenteredPointer => &self.centered_pointer,
@@ -110,9 +108,7 @@ impl<Cursor> DefaultCursors<Cursor> {
             DefaultCursorsSelection::Crosshair => &self.crosshair,
             DefaultCursorsSelection::Pointer => &self.pointer,
             DefaultCursorsSelection::ClosedHand => &self.closed_hand,
-            DefaultCursorsSelection::ClosedHandNoDrop => {
-                &self.closed_hand_no_drop
-            }
+            DefaultCursorsSelection::ClosedHandNoDrop => &self.closed_hand_no_drop,
             DefaultCursorsSelection::ArrowDown => &self.arrow_down,
             DefaultCursorsSelection::Draft => &self.draft,
             DefaultCursorsSelection::Fleur => &self.fleur,
@@ -131,9 +127,7 @@ impl<Cursor> DefaultCursors<Cursor> {
             DefaultCursorsSelection::ResizeNWSE => &self.resize_nwse,
             DefaultCursorsSelection::ResizeNESW => &self.resize_nesw,
             DefaultCursorsSelection::ResizeVertical => &self.resize_vertical,
-            DefaultCursorsSelection::ResizeHorizontal => {
-                &self.resize_horizontal
-            }
+            DefaultCursorsSelection::ResizeHorizontal => &self.resize_horizontal,
             DefaultCursorsSelection::Text => &self.text,
             DefaultCursorsSelection::ArrowTopLeft => &self.arrow_top_left,
             DefaultCursorsSelection::ArrowTopRight => &self.arrow_top_right,
@@ -145,35 +139,22 @@ impl<Cursor> DefaultCursors<Cursor> {
         }
     }
     /// Get the selected cursor as a mutable red
-    pub const fn get_cursor_mut(
-        &mut self,
-        cursor: DefaultCursorsSelection,
-    ) -> &mut Cursor {
+    pub const fn get_cursor_mut(&mut self, cursor: DefaultCursorsSelection) -> &mut Cursor {
         match cursor {
             DefaultCursorsSelection::Alias => &mut self.alias,
             DefaultCursorsSelection::ResizeAll => &mut self.resize_all,
-            DefaultCursorsSelection::ArrowBottomLeft => {
-                &mut self.arrow_bottom_left
-            }
-            DefaultCursorsSelection::ArrowBottomRight => {
-                &mut self.arrow_bottom_right
-            }
-            DefaultCursorsSelection::ArrowBottomStop => {
-                &mut self.arrow_bottom_stop
-            }
+            DefaultCursorsSelection::ArrowBottomLeft => &mut self.arrow_bottom_left,
+            DefaultCursorsSelection::ArrowBottomRight => &mut self.arrow_bottom_right,
+            DefaultCursorsSelection::ArrowBottomStop => &mut self.arrow_bottom_stop,
             DefaultCursorsSelection::Cell => &mut self.cell,
-            DefaultCursorsSelection::CenteredPointer => {
-                &mut self.centered_pointer
-            }
+            DefaultCursorsSelection::CenteredPointer => &mut self.centered_pointer,
             DefaultCursorsSelection::ColorPicker => &mut self.color_picker,
             DefaultCursorsSelection::ContextMenu => &mut self.context_menu,
             DefaultCursorsSelection::Copy => &mut self.copy,
             DefaultCursorsSelection::Crosshair => &mut self.crosshair,
             DefaultCursorsSelection::Pointer => &mut self.pointer,
             DefaultCursorsSelection::ClosedHand => &mut self.closed_hand,
-            DefaultCursorsSelection::ClosedHandNoDrop => {
-                &mut self.closed_hand_no_drop
-            }
+            DefaultCursorsSelection::ClosedHandNoDrop => &mut self.closed_hand_no_drop,
             DefaultCursorsSelection::ArrowDown => &mut self.arrow_down,
             DefaultCursorsSelection::Draft => &mut self.draft,
             DefaultCursorsSelection::Fleur => &mut self.fleur,
@@ -187,20 +168,12 @@ impl<Cursor> DefaultCursors<Cursor> {
             DefaultCursorsSelection::Pirate => &mut self.pirate,
             DefaultCursorsSelection::Hand => &mut self.hand,
             DefaultCursorsSelection::ArrowRight => &mut self.arrow_right,
-            DefaultCursorsSelection::MirroredPointer => {
-                &mut self.mirrored_pointer
-            }
-            DefaultCursorsSelection::ArrowRightStop => {
-                &mut self.arrow_right_stop
-            }
+            DefaultCursorsSelection::MirroredPointer => &mut self.mirrored_pointer,
+            DefaultCursorsSelection::ArrowRightStop => &mut self.arrow_right_stop,
             DefaultCursorsSelection::ResizeNWSE => &mut self.resize_nwse,
             DefaultCursorsSelection::ResizeNESW => &mut self.resize_nesw,
-            DefaultCursorsSelection::ResizeVertical => {
-                &mut self.resize_vertical
-            }
-            DefaultCursorsSelection::ResizeHorizontal => {
-                &mut self.resize_horizontal
-            }
+            DefaultCursorsSelection::ResizeVertical => &mut self.resize_vertical,
+            DefaultCursorsSelection::ResizeHorizontal => &mut self.resize_horizontal,
             DefaultCursorsSelection::Text => &mut self.text,
             DefaultCursorsSelection::ArrowTopLeft => &mut self.arrow_top_left,
             DefaultCursorsSelection::ArrowTopRight => &mut self.arrow_top_right,
