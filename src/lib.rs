@@ -9,10 +9,10 @@
 #![feature(const_convert)]
 #![feature(slice_index_methods)]
 #![allow(incomplete_features)] // Idc anymore
-#![feature(lazy_type_alias)]
 #![feature(specialization)]
 #![feature(const_cmp)]
 #![feature(core_intrinsics)]
+#![feature(checked_type_aliases)]
 
 /// Keyboard related stuff
 pub mod keyboard;
