@@ -1,11 +1,7 @@
 use crate::keyboard::KeyCode;
 
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 /// A singular key combination
-#[cfg_attr(
-    feature = "mirl_derive",
-    mirl_derive::derive_all(zerocopy = false, compactly = false)
-)]
+#[mirl_macros::derive_all(zerocopy = false, compactly = false, copy = false,clone=nonconst,partial_ord=nonconst)]
 pub struct KeyBind<T> {
     /// The keys required to activate this keybind besides shift, alt, and control
     pub keys: Vec<KeyCode>,

@@ -2,8 +2,7 @@ use crate::mouse::DefaultCursorLoadError;
 
 // use super::*;
 
-#[cfg_attr(feature = "mirl_derive", mirl_derive::derive_all(wincode = false))]
-#[derive(Debug, Clone, Copy, PartialEq, PartialOrd, Eq, Ord, Hash, Default)]
+#[mirl_macros::derive_all(wincode = false, default = true)]
 /// A direct reference to the default cursors
 pub enum DefaultCursorsSelection {
     /// Default cursor with an extra arrow (e.g. clickable text)

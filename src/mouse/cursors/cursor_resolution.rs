@@ -1,6 +1,5 @@
-#[cfg_attr(feature = "mirl_derive", mirl_derive::derive_all)]
+#[mirl_macros::derive_all(default = true)]
 // #[cfg_attr(feature = "wincode", derive(wincode::SchemaWrite, wincode::SchemaRead))]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default)]
 /// The resolution/size of the given cursor
 ///
 /// If a given resolution is not supported, the next smaller is tried

@@ -16,12 +16,33 @@ impl ButtonState {
     }
 }
 
-#[cfg_attr(feature = "mirl_derive", mirl_derive::derive_all)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Hash, PartialOrd, Ord)]
+#[mirl_macros::derive_all(default = true)]
 /// The current state of a mouse buttons and if they have just been pressed
 #[allow(missing_docs, clippy::struct_excessive_bools)]
 pub struct ButtonState {
     pub down: bool,
     pub clicked: bool,
     pub released: bool,
+}
+
+const impl std::ops::BitOr for ButtonState {
+    type Output = Self;
+    fn bitor(self, rhs: Self) -> Self::Output {
+        Self {
+            down: self.down || rhs.down,
+            clicked: self.clicked || rhs.clicked,
+            released: self.released || rhs.released,
+        }
+    }
+}
+
+const impl std::ops::BitAnd for ButtonState {
+    type Output = Self;
+    fn bitand(self, rhs: Self) -> Self::Output {
+        Self {
+            down: self.down && rhs.down,
+            clicked: self.clicked && rhs.clicked,
+            released: self.released && rhs.released,
+        }
+    }
 }

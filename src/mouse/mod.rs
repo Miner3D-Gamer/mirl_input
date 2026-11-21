@@ -19,8 +19,9 @@ use crate::mouse::cursors::{
 /// A struct holding the state of a mouse
 pub mod mouse_manager;
 
-#[cfg_attr(feature = "mirl_derive", mirl_derive::derive_all(zerocopy = false))]
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub use mouse_manager::MouseState;
+
+#[mirl_macros::derive_all(zerocopy = false, copy = false,clone=nonconst,partial_eq=non_const)]
 /// Things that could go wrong while loading a cursor
 pub enum LoadCursorError {
     /// Image data corrupt
@@ -61,9 +62,10 @@ impl core::default::Default for DefaultCustomCursorResolutionSettings {
     }
 }
 
-#[cfg_attr(feature = "mirl_derive", mirl_derive::derive_all)]
+#[mirl_macros::derive_all(default = true)]
 /// Supported (and unsupported) mouse buttons
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default)]
+/// 
+/// TODO: Make this a u8
 pub enum MouseButton {
     #[default]
     /// ✨ The left mouse button ✨
@@ -80,16 +82,23 @@ pub enum MouseButton {
     Extra3,
     /// No one should be allowed this much power.
     Extra4,
-    /// You can't expect to be able to expect everything ¯\_(ツ)_/¯
-    Unsupported,
+    /// Dear god
+    Extra5,
+    /// Too many, you don't even have that many fingers!
+    Extra6,
+    // /// no
+    // Extra7,
+    // Extra8,
+    // /// You can't expect to be able to expect everything ¯\_(ツ)_/¯
+    // Unsupported,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, PartialOrd, Eq, Ord, Hash)]
 /// The shape of the default cursors has been defined but their color hasn't
 pub struct DefaultCursorColorInfo {
-    /// The main colour used in the cursor
+    /// The main color used in the cursor
     pub primary_color: u32,
-    /// An accent colour, often a darker/lighter shade of the primary color
+    /// An accent color, often a darker/lighter shade of the primary color
     pub secondary_color: u32,
 }
 

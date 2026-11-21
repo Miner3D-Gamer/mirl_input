@@ -2,16 +2,21 @@
 name = "mirl_input"
 version = "0.0.0-alpha"
 edition = "2024"
-repository.workspace = true
+repository = "https://github.com/Miner3D-Gamer/mirl_input"
 license.workspace = true
 authors.workspace = true
+rust-version.workspace = true
+maintenance.workspace = true
 # # GLFW
 # glfw = { version = "0.51.0", optional = true }
 
 # gl = { version = "0.14.0", optional = true }
 
 [features]
+default = ["std"]
+std = []
 all = [
+    "std",
     "cursor_loading",
     "all_codecs",
     "all_enum_extensions",
@@ -19,10 +24,8 @@ all = [
     "mirl_graphics/all",
 ]
 _checking = ["all", "cursor_show_hotspot"]
-# Does nothing by itself. Needs another codec or enum flag to do something
-mirl_derive = ["dep:mirl_derive", "mirl_buffer/mirl_derive", "mirl_graphics/mirl_derive"]
 # Compatibility with ffi
-c_compatible = ["mirl_derive", "mirl_buffer/c_compatible", "mirl_graphics/c_compatible"]
+c_compatible = ["mirl_buffer/c_compatible", "mirl_graphics/c_compatible"]
 # Enables all codecs
 all_codecs = [
     "serde",
@@ -33,33 +36,34 @@ all_codecs = [
     "mirl_buffer/all_codecs",
     "mirl_graphics/all_codecs",
 ]
+all_misc_integrations = ["rkyv", "get_size2", "bevy_reflect"]
 # # All enum extensions
-all_enum_extensions = ["strum", "enum_ext"]
+all_enum_extensions = ["strum", "enum_ext", "enum_ordinalize"]
 # Codec stuff
 serde = [
     "dep:serde",
-    "mirl_derive",
     "bitcode?/serde",
     "mirl_buffer/serde",
     "mirl_graphics/serde",
 ]
-bitcode = ["dep:bitcode", "mirl_derive", "mirl_buffer/bitcode", "mirl_graphics/bitcode"]
-wincode = ["dep:wincode", "mirl_derive", "mirl_buffer/wincode", "mirl_graphics/wincode"]
+bitcode = ["dep:bitcode", "mirl_buffer/bitcode", "mirl_graphics/bitcode"]
+wincode = ["dep:wincode", "mirl_buffer/wincode", "mirl_graphics/wincode"]
 compactly = [
     "dep:compactly",
-    "mirl_derive",
     "mirl_buffer/compactly",
     "mirl_graphics/compactly",
 ]
-zerocopy = [
-    "dep:zerocopy",
-    "mirl_derive",
-    "mirl_buffer/zerocopy",
-    "mirl_graphics/zerocopy",
-]
+zerocopy = ["dep:zerocopy", "mirl_buffer/zerocopy", "mirl_graphics/zerocopy"]
 # Enum extensions
-strum = ["dep:strum", "mirl_derive", "mirl_graphics/strum"]
-enum_ext = ["dep:enum_ext", "mirl_derive", "mirl_graphics/enum_ext"]
+strum = ["dep:strum", "mirl_graphics/strum"]
+enum_ext = ["dep:enum_ext", "mirl_graphics/enum_ext"]
+
+enum_ordinalize = ["dep:enum-ordinalize"]
+rkyv = ["dep:rkyv"]
+parity_scale_codec = ["dep:parity-scale-codec"]
+get_size2 = ["dep:get-size2"]
+bevy_reflect = ["dep:bevy_reflect"]
+
 cursor_loading = ["dep:sevenz-rust2"]
 # glfw = ["dep:glfw", "dep:gl"]
 cursor_show_hotspot = []
@@ -69,28 +73,34 @@ bitcode = { version = "0.6", optional = true, default-features = false, features
     "derive",
 ] }
 # Codec
-compactly = { version = "0.1", optional = true }
+compactly = { version = "0.2", optional = true }
 enum_ext = { version = "0.6", optional = true, default-features = false }
 # mirl_core = { version = "0.0.0-alpha" }
 mirl_buffer = { version = "0.0.0-alpha" }
-mirl_derive = { version = "0.0.0-alpha", optional = true }
+mirl_macros = { version = "0.0.0-alpha" }
 mirl_graphics = { version = "0.0.0-alpha", features = ["svg"] }
 serde = { version = "1.0", optional = true, default-features = false, features = [
     "derive",
 ] }
-sevenz-rust2 = { version = "0.21", default-features = false, optional = true }
+sevenz-rust2 = { version = "0.22", default-features = false, optional = true }
 # Enum functionality
 strum = { version = "0.28", optional = true, default-features = false, features = [
     "derive",
 ] }
-wincode = { version = "0.5", optional = true, features = ["derive"] }
+wincode = { version = "0.6", optional = true, features = ["derive"] }
 zerocopy = { version = "0.8", optional = true, default-features = false, features = [
     "float-nightly",
     "derive",
 ] }
 
+enum-ordinalize = { version = "4.4.2", optional = true }
+rkyv = { version = "0.8", optional = true }
+parity-scale-codec = { version = "3.7", optional = true, features = ["derive"] }
+get-size2 = { version = "0.11", optional = true, features = ["derive"] }
+bevy_reflect = { version = "0.20", optional = true }
+
 [build-dependencies]
-mirl_build_tools = { workspace = true }
+mirl_build_tools = { version = "0.0.0-alpha" }
 
 [lints]
 workspace = true

@@ -1,6 +1,10 @@
-#[cfg_attr(feature = "mirl_derive", mirl_derive::derive_all)]
+//! Represents digital keys using `KeyCodes` of which there should be plenty enough to pretty all libraries that use their own `KeyCodes`
+
+// TODO: Instead of defining the keys using a macro, we should use a proc macro. We define the attributes of each key in a special struct and then use that info to build all functions automatically
+
+#[mirl_macros::derive_all(default = true)]
 // #[cfg_attr(feature = "wincode", derive(wincode::SchemaWrite, wincode::SchemaRead))]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Hash, PartialOrd, Ord)]
+#[repr(u8)]
 /// Key code to be interpreted anywhere
 #[allow(missing_docs)]
 pub enum KeyCode {
@@ -290,6 +294,27 @@ pub const trait StringToKeyCodes {
 }
 
 impl KeyCode {
+    #[must_use]
+    /// Turns a text into characters. Special characters are to be split by a space
+    pub fn from_str_list(list: &str) -> Vec<Self> {
+        let mut output = Vec::new();
+        let splits = list.split(' ');
+        for split in splits {
+            let possible = Self::str_to_keycode(split);
+            match possible {
+                Self::Unknown => {
+                    for char in split.chars() {
+                        let mut buf = [0u8; 4];
+                        let s: &str = char.encode_utf8(&mut buf);
+                        output.push(Self::str_to_keycode(s));
+                    }
+                }
+                _ => output.push(possible),
+            }
+        }
+
+        output
+    }
     #[must_use]
     #[allow(clippy::too_many_lines)]
     /// Convert a keycode to a String -> Letters/Numbers return a String while function keys return None

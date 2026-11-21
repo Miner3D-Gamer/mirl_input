@@ -1,4 +1,3 @@
-/// Represents digital keys using `KeyCodes` of which there should be plenty enough to pretty all libraries that use their own `KeyCodes`
 pub mod keycodes;
 // /// Mouse related items
 // pub mod mouse;

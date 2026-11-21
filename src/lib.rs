@@ -13,6 +13,10 @@
 #![feature(const_cmp)]
 #![feature(core_intrinsics)]
 #![feature(checked_type_aliases)]
+#![feature(derive_const)]
+#![feature(const_clone)]
+#![feature(const_default)]
+#![feature(const_ops)]
 
 /// Keyboard related stuff
 pub mod keyboard;
